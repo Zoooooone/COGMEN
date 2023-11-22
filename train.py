@@ -4,6 +4,7 @@ import argparse
 import torch
 import os
 import cogmen
+import pandas as pd
 
 log = cogmen.utils.get_logger()
 
@@ -99,6 +100,24 @@ def main(args):
         "best_state": ret[2],
     }
     torch.save(checkpoint, model_file)
+
+    # save results to csv
+    res = {
+        "dataset": args.dataset,
+        "modalities": args.modalities,
+        "epochs": args.epochs,
+        "wp": args.wp,
+        "wf": args.wf,
+        "gnn_nheads": args.gnn_nheads,
+        "hidden_size": args.hidden_size,
+        "drop_rate": args.drop_rate,
+        "train_losses": [ret[-3]],
+        "dev_f1s": [ret[-2]],
+        "test_f1s": [ret[-1]]
+    }
+
+    res = pd.DataFrame(res)
+    res.to_csv("train_res.csv", mode="a", header=False)
 
 
 if __name__ == "__main__":
