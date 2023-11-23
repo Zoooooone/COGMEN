@@ -1,0 +1,243 @@
+\documentclass[a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{lipsum}
+\usepackage{amsmath}
+
+\title{Results of multi-modal emotion recognition using COGMEN model}
+\author{Ziheng Chen}
+\renewcommand{\abstractname}{\large Abstract}
+
+\begin{document}
+    \maketitle
+
+\begin{abstract}
+    \large
+    Check hyperparameter settings, and memorize corresponding results.
+\end{abstract}
+
+\tableofcontents
+
+% section 1
+\section{Experiment settings \& Hyperparameters}
+Experiment settings:
+
+\begin{itemize}
+    \item dataset
+    \item modalities
+    \item word2vec 2.0 audio features
+    \item pose visual features
+    \item \ldots
+\end{itemize}
+
+\noindent 
+Hyperparameters:
+
+\begin{itemize}
+    \item epochs
+    \item wp
+    \item wf
+    \item gnn\_nheads
+    \item hidden\_size
+    \item seqcontext\_nlayer
+    \item drop\_rate
+    \item learning\_rate
+    \item \ldots
+\end{itemize}
+
+% section 2
+\section{Results}
+Experiment settings: use word2vec 2.0 audio features and pose visual features.
+
+\subsection{IEMOCAP}
+\begin{itemize}
+    \item wp, wf = 4, hidden\_size = 128:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 4 & 2 & 128 & 65.9 \\
+            \hline
+            \text{atv} & 4 & 3 & 128 & 67.5 \\
+            \hline
+            \text{atv} & 4 & 4 & 128 & 67.4 \\
+            \hline
+            \text{atv} & 4 & 5 & 128 & 67.8 \\
+            \hline
+            \text{atv} & 4 & 6 & 128 & \(\mathbf{69.1}\) \\
+            \hline
+            \text{atv} & 4 & 7 & 128 & 67.8 \\
+            \hline
+            \text{atv} & 4 & 8 & 128 & 66.1 \\
+            \hline
+        \end{tabular}    
+        \]
+    \item wp, wf = 4, hidden\_size = 256:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 4 & 2 & 256 & 69.3 \\
+            \hline
+            \text{atv} & 4 & 3 & 256 & 68.2 \\
+            \hline
+            \text{atv} & 4 & 4 & 256 & 67.4 \\
+            \hline
+            \text{atv} & 4 & 5 & 256 & 67.5 \\
+            \hline
+            \text{atv} & 4 & 6 & 256 & 68.3 \\
+            \hline
+            \text{atv} & 4 & 7 & 256 & \(\mathbf{70.0}\) \\
+            \hline
+            \text{atv} & 4 & 8 & 256 & 68.1 \\
+            \hline
+        \end{tabular}    
+        \]
+    \item wp, wf = 10, hidden\_size = 128:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 10 & 2 & 128 & 65.7 \\
+            \hline
+            \text{atv} & 10 & 3 & 128 & 67.5 \\
+            \hline
+            \text{atv} & 10 & 4 & 128 & 66.1 \\
+            \hline
+            \text{atv} & 10 & 5 & 128 & 66.7 \\
+            \hline
+            \text{atv} & 10 & 6 & 128 & \(\mathbf{68.3}\) \\
+            \hline
+            \text{atv} & 10 & 7 & 128 & 67.1 \\
+            \hline
+            \text{atv} & 10 & 8 & 128 & 67.2 \\
+            \hline
+        \end{tabular}    
+        \]
+    \item wp, wf = 10, hidden\_size = 256:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 10 & 2 & 256 & 66.9 \\
+            \hline
+            \text{atv} & 10 & 3 & 256 & 67.7 \\
+            \hline
+            \text{atv} & 10 & 4 & 256 & 68.6 \\
+            \hline
+            \text{atv} & 10 & 5 & 256 & 67.7 \\
+            \hline
+            \text{atv} & 10 & 6 & 256 & 68.6 \\
+            \hline
+            \text{atv} & 10 & 7 & 256 & \(\mathbf{70.1}\) \\
+            \hline
+            \text{atv} & 10 & 8 & 256 & 68.0 \\
+            \hline
+        \end{tabular}    
+        \]
+\end{itemize}
+
+\subsection{IEMOCAP\_4}
+\begin{itemize}
+    \item wp, wf = 4, hidden\_size = 128:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 4 & 2 & 128 & 82.7 \\
+            \hline
+            \text{atv} & 4 & 3 & 128 & 82.4 \\
+            \hline
+            \text{atv} & 4 & 4 & 128 & 81.9 \\
+            \hline
+            \text{atv} & 4 & 5 & 128 & 83.3 \\
+            \hline
+            \text{atv} & 4 & 6 & 128 & 83.3 \\
+            \hline
+            \text{atv} & 4 & 7 & 128 & \(\mathbf{85.3}\) \\
+            \hline
+            \text{atv} & 4 & 8 & 128 & 82.9 \\
+            \hline
+        \end{tabular}    
+        \]
+    \item wp, wf = 4, hidden\_size = 256:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 4 & 2 & 256 & 83.6 \\
+            \hline
+            \text{atv} & 4 & 3 & 256 & 82.9 \\
+            \hline
+            \text{atv} & 4 & 4 & 256 & \(\mathbf{85.0}\) \\
+            \hline
+            \text{atv} & 4 & 5 & 256 & 83.6 \\
+            \hline
+            \text{atv} & 4 & 6 & 256 & 83.7 \\
+            \hline
+            \text{atv} & 4 & 7 & 256 & 84.4 \\
+            \hline
+            \text{atv} & 4 & 8 & 256 & 83.7 \\
+            \hline
+        \end{tabular}    
+        \]
+    \item wp, wf = 10, hidden\_size = 128:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 10 & 2 & 128 & 81.7 \\
+            \hline
+            \text{atv} & 10 & 3 & 128 & 83.3 \\
+            \hline
+            \text{atv} & 10 & 4 & 128 & 82.3 \\
+            \hline
+            \text{atv} & 10 & 5 & 128 & \(\mathbf{83.7}\) \\
+            \hline
+            \text{atv} & 10 & 6 & 128 & 82.7 \\
+            \hline
+            \text{atv} & 10 & 7 & 128 & 83.5 \\
+            \hline
+            \text{atv} & 10 & 8 & 128 & 82.8 \\
+            \hline
+        \end{tabular}    
+        \]
+    \item wp, wf = 10, hidden\_size = 256:
+        \[
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \hline
+            \text{atv} & 10 & 2 & 256 & 82.7 \\
+            \hline
+            \text{atv} & 10 & 3 & 256 & 83.1 \\
+            \hline
+            \text{atv} & 10 & 4 & 256 & 82.9 \\
+            \hline
+            \text{atv} & 10 & 5 & 256 & 84.4 \\
+            \hline
+            \text{atv} & 10 & 6 & 256 & 83.7 \\
+            \hline
+            \text{atv} & 10 & 7 & 256 & \(\mathbf{84.8}\) \\
+            \hline
+            \text{atv} & 10 & 8 & 256 & 83.1 \\
+            \hline
+        \end{tabular}    
+        \]
+\end{itemize}
+
+\end{document}

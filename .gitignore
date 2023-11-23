@@ -131,6 +131,13 @@ dmypy.json
 # others
 .DS_Store
 
+# data
 data
 model_checkpoints
 models
+
+# auxiliary files
+*.aux
+*.pdf
+*.synctex.gz
+*.toc
