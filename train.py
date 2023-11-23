@@ -101,7 +101,7 @@ def main(args):
     }
     torch.save(checkpoint, model_file)
 
-    # save results to csv
+    # Save results to csv
     res = {
         "dataset": args.dataset,
         "modalities": args.modalities,
@@ -111,13 +111,15 @@ def main(args):
         "gnn_nheads": args.gnn_nheads,
         "hidden_size": args.hidden_size,
         "drop_rate": args.drop_rate,
+        "learning_rate": args.learning_rate,
+        "seqcontext_nlayer": args.seqcontext_nlayer,
         "train_losses": [ret[-3]],
         "dev_f1s": [ret[-2]],
         "test_f1s": [ret[-1]]
     }
 
     res = pd.DataFrame(res)
-    res.to_csv("train_res.csv", mode="a", header=False)
+    res.to_csv("results/train_res.csv", mode="a", header=False)
 
 
 if __name__ == "__main__":
