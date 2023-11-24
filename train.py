@@ -115,11 +115,13 @@ def main(args):
         "seqcontext_nlayer": args.seqcontext_nlayer,
         "train_losses": [ret[-3]],
         "dev_f1s": [ret[-2]],
-        "test_f1s": [ret[-1]]
+        "test_f1s": [ret[-1]],
+        "best_f1s": max(ret[-1]) * 100,
+        "experiment": args.experiment
     }
 
     res = pd.DataFrame(res)
-    res.to_csv("results/train_res.csv", mode="a", header=False)
+    res.to_csv("results/train_res.csv", mode="a", header=False, index=False)
 
 
 if __name__ == "__main__":
@@ -273,6 +275,7 @@ if __name__ == "__main__":
     parser.add_argument("--use_pe_in_seqcontext", action="store_true", default=False)
     parser.add_argument("--tuning", action="store_true", default=False)
     parser.add_argument("--tag", type=str, default="hyperparameters_opt")
+    parser.add_argument("--experiment", type=int, default=1)
 
     args = parser.parse_args()
 
