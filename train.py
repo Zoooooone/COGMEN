@@ -117,6 +117,7 @@ def main(args):
         "dev_f1s": [ret[-2]],
         "test_f1s": [ret[-1]],
         "best_f1s": max(ret[-1]) * 100,
+        "final_f1s": ret[-1][-1] * 100,
         "experiment": args.experiment
     }
 
