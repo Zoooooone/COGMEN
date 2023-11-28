@@ -2,6 +2,8 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{lipsum}
 \usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{array}
 
 \title{Results of multi-modal emotion recognition using COGMEN model}
 \author{Ziheng Chen}
@@ -48,196 +50,284 @@ Hyperparameters:
 \section{Results}
 Experiment settings: use word2vec 2.0 audio features and pose visual features.
 
-\subsection{IEMOCAP}
+% 2.1
+\subsection{Experiment 1}
+
+% 2.1.1
+\subsubsection{IEMOCAP}
+
 \begin{itemize}
     \item wp, wf = 4, hidden\_size = 128:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 4 & 2 & 128 & 65.9 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 2 & 128 & 63.2 \\
             \hline
-            \text{atv} & 4 & 3 & 128 & 67.5 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 3 & 128 & 64.0 \\
             \hline
-            \text{atv} & 4 & 4 & 128 & 67.4 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 4 & 128 & 63.6 \\
             \hline
-            \text{atv} & 4 & 5 & 128 & 67.8 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 5 & 128 & 64.1 \\
             \hline
-            \text{atv} & 4 & 6 & 128 & \(\mathbf{69.1}\) \\
+            \text{IEMOCAP} & \text{atv} & 4 & 6 & 128 & 64.9 \\
             \hline
-            \text{atv} & 4 & 7 & 128 & 67.8 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 7 & 128 & \(\mathbf{66.2}\) \\
             \hline
-            \text{atv} & 4 & 8 & 128 & 66.1 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 8 & 128 & 64.9 \\
             \hline
         \end{tabular}    
         \]
     \item wp, wf = 4, hidden\_size = 256:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 4 & 2 & 256 & 69.3 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 2 & 256 & 64.5 \\
             \hline
-            \text{atv} & 4 & 3 & 256 & 68.2 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 3 & 256 & 63.2 \\
             \hline
-            \text{atv} & 4 & 4 & 256 & 67.4 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 4 & 256 & 64.5 \\
             \hline
-            \text{atv} & 4 & 5 & 256 & 67.5 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 5 & 256 & 65.1 \\
             \hline
-            \text{atv} & 4 & 6 & 256 & 68.3 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 6 & 256 & 63.3 \\
             \hline
-            \text{atv} & 4 & 7 & 256 & \(\mathbf{70.0}\) \\
+            \text{IEMOCAP} & \text{atv} & 4 & 7 & 256 & 66.1 \\
             \hline
-            \text{atv} & 4 & 8 & 256 & 68.1 \\
+            \text{IEMOCAP} & \text{atv} & 4 & 8 & 256 & \(\mathbf{66.7}\) \\
             \hline
         \end{tabular}    
         \]
     \item wp, wf = 10, hidden\_size = 128:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 10 & 2 & 128 & 65.7 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 2 & 128 & 62.6 \\
             \hline
-            \text{atv} & 10 & 3 & 128 & 67.5 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 3 & 128 & 65.0 \\
             \hline
-            \text{atv} & 10 & 4 & 128 & 66.1 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 4 & 128 & 63.4 \\
             \hline
-            \text{atv} & 10 & 5 & 128 & 66.7 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 5 & 128 & 64.3 \\
             \hline
-            \text{atv} & 10 & 6 & 128 & \(\mathbf{68.3}\) \\
+            \text{IEMOCAP} & \text{atv} & 10 & 6 & 128 & \(\color{red}{\mathbf{67.1}}\) \\
             \hline
-            \text{atv} & 10 & 7 & 128 & 67.1 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 7 & 128 & 64.7 \\
             \hline
-            \text{atv} & 10 & 8 & 128 & 67.2 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 8 & 128 & 65.0 \\
             \hline
         \end{tabular}    
         \]
     \item wp, wf = 10, hidden\_size = 256:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 10 & 2 & 256 & 66.9 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 2 & 256 & 64.7 \\
             \hline
-            \text{atv} & 10 & 3 & 256 & 67.7 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 3 & 256 & 64.0 \\
             \hline
-            \text{atv} & 10 & 4 & 256 & 68.6 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 4 & 256 & \(\mathbf{65.0}\) \\
             \hline
-            \text{atv} & 10 & 5 & 256 & 67.7 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 5 & 256 & 64.2 \\
             \hline
-            \text{atv} & 10 & 6 & 256 & 68.6 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 6 & 256 & 63.7 \\
             \hline
-            \text{atv} & 10 & 7 & 256 & \(\mathbf{70.1}\) \\
+            \text{IEMOCAP} & \text{atv} & 10 & 7 & 256 & 64.9 \\
             \hline
-            \text{atv} & 10 & 8 & 256 & 68.0 \\
+            \text{IEMOCAP} & \text{atv} & 10 & 8 & 256 & 63.6 \\
             \hline
         \end{tabular}    
         \]
 \end{itemize}
 
-\subsection{IEMOCAP\_4}
+% 2.1.2
+\subsubsection{IEMOCAP\_4}
+
 \begin{itemize}
     \item wp, wf = 4, hidden\_size = 128:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 4 & 2 & 128 & 82.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 2 & 128 & 81.6 \\
             \hline
-            \text{atv} & 4 & 3 & 128 & 82.4 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 3 & 128 & 79.9 \\
             \hline
-            \text{atv} & 4 & 4 & 128 & 81.9 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 4 & 128 & 81.3 \\
             \hline
-            \text{atv} & 4 & 5 & 128 & 83.3 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 5 & 128 & 82.1 \\
             \hline
-            \text{atv} & 4 & 6 & 128 & 83.3 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 6 & 128 & 81.3 \\
             \hline
-            \text{atv} & 4 & 7 & 128 & \(\mathbf{85.3}\) \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 7 & 128 & 82.1 \\
             \hline
-            \text{atv} & 4 & 8 & 128 & 82.9 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 8 & 128 & \(\mathbf{82.5}\) \\
             \hline
         \end{tabular}    
         \]
     \item wp, wf = 4, hidden\_size = 256:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 4 & 2 & 256 & 83.6 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 2 & 256 & 83.5 \\
             \hline
-            \text{atv} & 4 & 3 & 256 & 82.9 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 3 & 256 & 82.3 \\
             \hline
-            \text{atv} & 4 & 4 & 256 & \(\mathbf{85.0}\) \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 4 & 256 & 81.9 \\
             \hline
-            \text{atv} & 4 & 5 & 256 & 83.6 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 5 & 256 & 82.3 \\
             \hline
-            \text{atv} & 4 & 6 & 256 & 83.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 6 & 256 & 82.7 \\
             \hline
-            \text{atv} & 4 & 7 & 256 & 84.4 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 7 & 256 & \(\color{red}{\mathbf{83.7}}\) \\
             \hline
-            \text{atv} & 4 & 8 & 256 & 83.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 4 & 8 & 256 & 82.3 \\
             \hline
         \end{tabular}    
         \]
     \item wp, wf = 10, hidden\_size = 128:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 10 & 2 & 128 & 81.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 2 & 128 & 79.2 \\
             \hline
-            \text{atv} & 10 & 3 & 128 & 83.3 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 3 & 128 & 80.1 \\
             \hline
-            \text{atv} & 10 & 4 & 128 & 82.3 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 4 & 128 & 79.0 \\
             \hline
-            \text{atv} & 10 & 5 & 128 & \(\mathbf{83.7}\) \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 5 & 128 & \(\mathbf{82.5}\) \\
             \hline
-            \text{atv} & 10 & 6 & 128 & 82.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 6 & 128 & 81.4 \\
             \hline
-            \text{atv} & 10 & 7 & 128 & 83.5 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 7 & 128 & 80.8 \\
             \hline
-            \text{atv} & 10 & 8 & 128 & 82.8 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 8 & 128 & 81.7 \\
             \hline
         \end{tabular}    
         \]
     \item wp, wf = 10, hidden\_size = 256:
         \[
         \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|p{2.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{2cm}<{\centering}|}
             \hline
-            \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
+            \textbf{Dataset} & \textbf{Modalities} & \textbf{Window Past \& Future} & \textbf{GNN heads} & \textbf{Hidden Size} & \textbf{F1 Score(\%)} \\
             \hline
-            \text{atv} & 10 & 2 & 256 & 82.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 2 & 256 & 81.9 \\
             \hline
-            \text{atv} & 10 & 3 & 256 & 83.1 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 3 & 256 & \(\mathbf{82.3}\) \\
             \hline
-            \text{atv} & 10 & 4 & 256 & 82.9 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 4 & 256 & 80.5 \\
             \hline
-            \text{atv} & 10 & 5 & 256 & 84.4 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 5 & 256 & \(\mathbf{82.3}\) \\
             \hline
-            \text{atv} & 10 & 6 & 256 & 83.7 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 6 & 256 & 81.3 \\
             \hline
-            \text{atv} & 10 & 7 & 256 & \(\mathbf{84.8}\) \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 7 & 256 & 81.4 \\
             \hline
-            \text{atv} & 10 & 8 & 256 & 83.1 \\
+            \text{IEMOCAP\_4} & \text{atv} & 10 & 8 & 256 & 80.5 \\
             \hline
         \end{tabular}    
         \]
 \end{itemize}
+
+\newpage
+% 2.2
+\subsection{Experiment 2}
+Choose the hyperparameter setting that had best performance in experiment 1: 
+\\ \noindent \textbf{gnn\_nheads = 6, hidden\_size = 128} 
+
+\[
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Modalities} & \textbf{Window Past} & \textbf{Window Future} & \textbf{F1 score(\%)} \\
+    \hline
+    \text{atv} & 0 & 0 & 63.02 \\
+    \hline
+    \text{atv} & 1 & 1 & 64.20 \\
+    \hline
+    \text{atv} & 2 & 2 & 65.84 \\
+    \hline
+    \text{atv} & 3 & 3 & 65.11 \\
+    \hline
+    \text{atv} & 4 & 4 & 65.32 \\
+    \hline
+    \text{atv} & 5 & 5 & 65.19 \\
+    \hline
+    \text{atv} & 6 & 6 & 64.87 \\
+    \hline
+    \text{atv} & 7 & 7 & 65.20 \\
+    \hline
+    \text{atv} & 8 & 8 & 66.45 \\
+    \hline
+    \text{atv} & 9 & 9 & \(\mathbf{66.84}\) \\
+    \hline
+    \text{atv} & 10 & 10 & 66.47 \\
+    \hline
+    \text{atv} & 11 & 11 & \(\mathbf{67.39}\) \\
+    \hline
+    \text{atv} & 12 & 12 & 66.28 \\
+    \hline
+    \text{atv} & 13 & 13 & 65.93 \\
+    \hline
+    \text{atv} & 14 & 14 & 66.59 \\
+    \hline
+    \text{atv} & 15 & 15 & 65.97 \\
+    \hline
+    \text{atv} & \text{all} & \text{all} & 64.83 \\
+    \hline
+\end{tabular}
+\]
+
+% 2.3
+\subsection{Experiment 3}
+Hyperparameter settings: 
+
+\begin{itemize}
+    \item Dataset: IEMOCAP\_4, gnn\_nheads = 4, wp = wf = 7, hidden\_size = 256
+    \item Dataset: IEMOCAP, gnn\_nheads = 6, wp = wf = 10, hidden\_size = 128
+\end{itemize}
+
+\[
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|p{3.9cm}<{\centering}|p{3.9cm}<{\centering}|}
+    \hline
+    \textbf{Modalities} & \textbf{IEMOCAP\_4 F1 Score (\%)} & \textbf{IEMOCAP F1 score (\%)} \\
+    \hline
+    \text{a} & 60.08 & 45.99 \\
+    \hline
+    \text{t} & 80.70 & 63.08 \\
+    \hline
+    \text{v} & 41.37 & 33.08 \\
+    \hline
+    \text{at} & 82.25 & 66.20 \\
+    \hline
+    \text{av} & 58.07 & 48.31 \\
+    \hline
+    \text{tv} & 80.2 & 62.15 \\
+    \hline
+    \text{atv} & \(\mathbf{82.27}\) & \(\mathbf{66.29}\) \\
+    \hline
+\end{tabular}
+\]
 
 \end{document}
