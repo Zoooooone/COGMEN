@@ -1,8 +1,10 @@
 import argparse
+import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from ast import literal_eval
+from collections import defaultdict
 from matplotlib import cm
 
 
@@ -90,7 +92,36 @@ def plot_windows(data):
             set_ticks_size(font_size)
 
     plt.legend(loc=2, bbox_to_anchor=(1.02, 1.5), prop={"size": 12}) 
-    plt.savefig("results/img/windows/plot_res_windows.png") 
+    plt.savefig("results/img/windows/plot_res_windows.png")
+
+
+def plot_label_metrics(data, args):
+    labels = {
+        "hap": "happy",
+        "sad": "sad",
+        "neu": "neutral",
+        "ang": "angry",
+        "exc": "excited",
+        "fru": "frustrated"
+    }
+    metrics = defaultdict(list)
+    for dic in data:
+        for emotion_label in dic.keys():
+            metrics[emotion_label].append(dic[emotion_label]["f1-score"])
+
+    plt.figure(dpi=200, figsize=(8, 6))
+    epoch = len(metrics["hap"]) + 1
+    epochs = np.arange(1, epoch)
+    for emotion_label, series in metrics.items():
+        series = np.array(series)
+        plt.plot(epochs, series, label=labels[emotion_label])
+        plt.fill_between(epochs, series - np.std(series), series + np.std(series), alpha=0.2)
+
+    plt.xlabel("epochs")
+    plt.ylabel("F1")
+    plt.title(f"dataset: {args.dataset}, modalities: {args.modalities}")
+    plt.legend()
+    plt.savefig(f"results/img/label_metrics/label_metrics_{args.dataset}_{args.modalities}.png")
 
 
 def main(args):
@@ -106,17 +137,25 @@ def main(args):
         res_windows = res[(res["gnn_nheads"] == 6) & (res["dataset"] == "iemocap") & (res["experiment"] == 2)]
         plot_windows(res_windows)
 
+    if args.plot == "label_metrics":
+        with open(f"results/label_metrics_pkl/label_metrics_{args.dataset}_{args.modalities}.pkl", "rb") as file:
+            res_label_metrics = pickle.load(file)
+        plot_label_metrics(res_label_metrics, args)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="plot_res.py")
     parser.add_argument(
-        "--plot", type=str, help="Types of figures", choices=["gnn_heads", "windows"], default="gnn_heads"
+        "--plot", type=str, help="Types of figures", choices=["gnn_heads", "windows", "label_metrics"], default="gnn_heads"
     )
     parser.add_argument(
         "--dataset", type=str, help="Dataset that was used", default="iemocap_4"
     )
     parser.add_argument(
         "--gnn_nheads", type=int, help="hyperparameter GNN heads", default=5
+    )
+    parser.add_argument(
+        "--modalities", type=str, help="used modalities", choices=["a", "t", "v", "at", "av", "tv", "atv"]
     )
 
     args = parser.parse_args()

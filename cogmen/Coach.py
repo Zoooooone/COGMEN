@@ -1,7 +1,9 @@
 import copy
+import re
 import time
 
 import numpy as np
+from collections import defaultdict
 from numpy.core import overrides
 import torch
 from tqdm import tqdm
@@ -72,15 +74,16 @@ class Coach:
 
         dev_f1s = []
         test_f1s = []
+        label_metrics = []
         train_losses = []
         best_test_f1 = None
 
         # Train
         for epoch in range(1, self.args.epochs + 1):
             train_loss = self.train_epoch(epoch)
-            dev_f1, dev_loss = self.evaluate()
+            dev_f1, dev_loss, _ = self.evaluate()
             self.scheduler.step(dev_loss)
-            test_f1, _ = self.evaluate(test=True)
+            test_f1, _, label_metric = self.evaluate(test=True)
             if self.args.dataset == "mosei" and self.args.emotion == "multilabel":
                 test_f1 = np.array(list(test_f1.values())).mean()
             log.info("[Dev set] [f1 {:.4f}]".format(dev_f1))
@@ -113,6 +116,7 @@ class Coach:
 
             dev_f1s.append(dev_f1)
             test_f1s.append(test_f1)
+            label_metrics.append(label_metric)
             train_losses.append(train_loss)
             if self.args.log_in_comet or self.args.tuning:
                 self.args.experiment.log_metric("F1 Score (Dev)", dev_f1, epoch=epoch)
@@ -124,19 +128,19 @@ class Coach:
             self.args.experiment.log_metric("best_dev_f1", best_dev_f1, epoch=epoch)
             self.args.experiment.log_metric("best_test_f1", best_test_f1, epoch=epoch)
 
-            return best_dev_f1, best_epoch, best_state, train_losses, dev_f1s, test_f1s
+            return best_dev_f1, best_epoch, best_state, train_losses, dev_f1s, test_f1s, label_metrics
 
         # The best
 
         self.model.load_state_dict(best_state)
         log.info("")
         log.info("Best in epoch {}:".format(best_epoch))
-        dev_f1, _ = self.evaluate()
+        dev_f1, _, _ = self.evaluate()
         log.info("[Dev set] [f1 {:.4f}]".format(dev_f1))
-        test_f1, _ = self.evaluate(test=True)
+        test_f1, _, _ = self.evaluate(test=True)
         log.info("[Test set] f1 {}".format(test_f1))
 
-        return best_dev_f1, best_epoch, best_state, train_losses, dev_f1s, test_f1s
+        return best_dev_f1, best_epoch, best_state, train_losses, dev_f1s, test_f1s, label_metrics
 
     def train_epoch(self, epoch):
         start_time = time.time()
@@ -193,6 +197,10 @@ class Coach:
                 golds = torch.cat(golds, dim=-1).numpy()
                 preds = torch.cat(preds, dim=-1).numpy()
                 f1 = metrics.f1_score(golds, preds, average="weighted")
+                label_metrics = metrics.classification_report(
+                    golds, preds, target_names=self.label_to_idx.keys(), digits=4
+                )
+                label_metrics = self.get_label_metrics(label_metrics)
 
             if test:
                 print(
@@ -250,4 +258,22 @@ class Coach:
                         self.args.experiment.log_metric("disgust_f1", disgust)
                         self.args.experiment.log_metric("fear_f1", fear)
 
-        return f1, dev_loss
+        return f1, dev_loss, label_metrics
+    
+    def get_label_metrics(self, metrics_str):
+        metrics_str = metrics_str.split('\n')
+        metrics_str = list(map(lambda x: re.split(r"\s+", x.strip()), metrics_str))
+        metrics_str = [s for s in metrics_str if s != [""]]
+        label_metrics = defaultdict(dict)
+
+        if self.args.dataset == "iemocap":
+            for s in metrics_str[1:7]:
+                for i in range(1, len(s)):
+                    label_metrics[s[0]][metrics_str[0][i - 1]] = float(s[i])
+        
+        if self.args.dataset == "iemocap_4":
+            for s in metrics_str[1:5]:
+                for i in range(1, len(s)):
+                    label_metrics[s[0]][metrics_str[0][i - 1]] = float(s[i])
+
+        return label_metrics

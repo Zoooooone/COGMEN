@@ -4,6 +4,7 @@ import argparse
 import torch
 import os
 import cogmen
+import pickle
 import pandas as pd
 
 log = cogmen.utils.get_logger()
@@ -113,13 +114,15 @@ def main(args):
         "drop_rate": args.drop_rate,
         "learning_rate": args.learning_rate,
         "seqcontext_nlayer": args.seqcontext_nlayer,
-        "train_losses": [ret[-3]],
-        "dev_f1s": [ret[-2]],
-        "test_f1s": [ret[-1]],
-        "best_f1s": max(ret[-1]) * 100,
-        "final_f1s": ret[-1][-1] * 100,
+        "train_losses": [ret[-4]],
+        "dev_f1s": [ret[-3]],
+        "test_f1s": [ret[-2]],
+        "best_f1s": max(ret[-2]) * 100,
+        "final_f1s": ret[-2][-1] * 100,
         "experiment": args.experiment
     }
+    with open(f"results/label_metrics_pkl/label_metrics_{args.dataset}_{args.modalities}.pkl", "wb") as file:
+        pickle.dump(ret[-1], file)
 
     res = pd.DataFrame(res)
     res.to_csv("results/train_res.csv", mode="a", header=False, index=False)

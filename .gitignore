@@ -130,13 +130,13 @@ dmypy.json
 
 # others
 .DS_Store
-add_column.py
-check_pkl_files.py
+others
 
 # data
 data
 model_checkpoints
 models
+*.pkl
 
 # auxiliary files
 *.aux
