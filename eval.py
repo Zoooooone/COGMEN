@@ -2,7 +2,6 @@ import pickle
 import os
 import argparse
 import torch
-import os
 
 import numpy as np
 import matplotlib.pyplot as plt
