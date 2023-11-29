@@ -6,6 +6,7 @@ import pandas as pd
 from ast import literal_eval
 from collections import defaultdict
 from matplotlib import cm
+from pathlib import Path
 
 
 def plot_gnn_heads(data, args):
@@ -176,7 +177,7 @@ def plot_all_label_metrics(args):
         for dic in data:
             for emotion_label in dic.keys():
                 metrics[emotion_label].append(dic[emotion_label]["f1-score"])
-        
+
         if i + 1 < 7:
             plt.subplot(3, 3, i + 1)
         else:
@@ -190,6 +191,17 @@ def plot_all_label_metrics(args):
 
         plt.ylim((-0.1, 1))
         plt.title(f"modalities: {modalities[i]}", fontsize=10)
+
+        for emotion_label, series in metrics.items():
+            metrics[emotion_label] = [round(series[-1] * 100, 2)]
+        metrics["dataset"] = args.dataset
+        metrics["modalities"] = modalities[i]
+        metrics = pd.DataFrame(metrics)
+        path = f"results/label_metrics_{args.dataset}_res.csv"
+        if Path(path).exists():
+            metrics.to_csv(path, mode="a", header=False, index=False)
+        else:
+            metrics.to_csv(path, header=True, index=False)
 
     plt.xlabel("epochs")
     plt.ylabel("F1")
